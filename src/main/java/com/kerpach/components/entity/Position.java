@@ -2,24 +2,31 @@ package com.kerpach.components.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Model class for position
  */
 
-//@Entity
-//@Table(name = "Positions")
+@Entity
+@Table(name = "Positions")
 public class Position implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	//@Id
-	//@Column(name = "id")
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	//@Column(name = "title")
+	@Column(name = "title")
 	private String titlePosition;
-	//@Column(name = "registration_code")
+	@Column(name = "registration_code")
 	private String regCodPosition;
-	//@Column(name = "salary")
+	@Column(name = "salary")
 	private Float salaryPosition;
 
 	public Position() {

@@ -2,53 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 <hibernate-mapping>
 	
-	<class name="com.kerpach.components.entity.Position" table="Positions" catalog="Kerpach_ASC">
 	
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
-            <generator class="identity" />
-        </id>
-        
-        <property name="titlePosition" type="string">
-            <column name="title" length="45" not-null="true"/>
-        </property>
-        <property name="regCodPosition" type="string">
-            <column name="registration_code" length="5" not-null="true"/>
-        </property>
-        <property name="salaryPosition" type="float">
-            <column name="salary" not-null="true"/>
-        </property>
-    </class>
     
-    <class name="com.kerpach.components.entity.Worker" table="Workers" catalog="Kerpach_ASC">
-	
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
-            <generator class="identity" />
-        </id>
-        
-        <property name="fnameWorker" type="string">
-            <column name="fname" length="45" not-null="true"/>
-        </property>
-        
-        <property name="snameWorker" type="string">
-            <column name="sname" length="45" not-null="true"/>
-        </property>
-        <property name="tnameWorker" type="string">
-            <column name="tname" length="45" not-null="true"/>
-        </property>
-        
-        <property name="dateBirth" type="date">
-            <column name="date_birth" not-null="true"/>
-        </property>
-        
-        <property name="idPosition" type="java.lang.Integer">
-            <column name="id_position" />
-        </property>
-        <property name="idDepartment" type="java.lang.Integer">
-            <column name="id_department" />
-        </property>
-    </class>
+    
     
     <class name="com.kerpach.components.entity.Department" table="Departments" catalog="Kerpach_ASC">
 	

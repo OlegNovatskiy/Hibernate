@@ -3,16 +3,33 @@ package com.kerpach.components.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Workers")
 public class Worker implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "fname")
 	private String fnameWorker;
+	@Column(name = "sname")
 	private String snameWorker;
+	@Column(name = "tname")
 	private String tnameWorker;
+	@Column(name = "date_birth")
 	private Date dateBirth;
+	@Column(name = "id_position")
 	private Integer idPosition;
+	@Column(name = "id_department")
 	private Integer idDepartment;
 	
 	public Worker(){}

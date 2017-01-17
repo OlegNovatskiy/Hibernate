@@ -11,6 +11,8 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
-        <mapping resource="com/kerpach/Kerpach.hbm.xml"></mapping>
+        <mapping class = "com.kerpach.components.entity.Position"/>
+        <mapping class = "com.kerpach.components.entity.Worker"/>
+        <mapping class = "com.kerpach.components.entity.Department"/>
     </session-factory>
 </hibernate-configuration>
