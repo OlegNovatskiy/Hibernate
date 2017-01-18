@@ -13,74 +13,96 @@ import com.kerpach.components.interfaces.IDepartment;
 import com.kerpach.persistence.HibernateUtil;
 
 @Repository
-public class DepartmentDAO implements IDepartment{
+public class DepartmentDAO implements IDepartment {
 
-	Session session = HibernateUtil.getSessionFactory().openSession();
-    
-    public void createDepartment(DepartmentRequest departmentRequest){
-   	 Session session = HibernateUtil.getSessionFactory().openSession();
-   	 session.beginTransaction();
-   	Department department = new Department(departmentRequest.getTitleDepartmnet(), departmentRequest.getDateCreate());
-        session.save(department);
-        session.getTransaction().commit();
-        if (session.isOpen()) {
-			 session.close();
-		 }
-    }
-    
-    public Department findDepartmentById(Integer id){
-   	 Session session = HibernateUtil.getSessionFactory().openSession();
-   	 session.beginTransaction();
-        
-   	Department department = session.get(Department.class, id);
-        
-        session.getTransaction().commit();
-        if (session.isOpen()) {
-			 session.close();
-		 }
-        return department;
-    }
-    
-    public Collection<Department> findAllDepartment(){
-   	 Session session = HibernateUtil.getSessionFactory().openSession();
-   	 session.beginTransaction();     
-   	 String hql = "select d from Department d";
-   	 Query query = session.createQuery(hql);
-   	 List<Department> departments = query.list();          
-        session.getTransaction().commit();
-        if (session.isOpen()) {
-			 session.close();
-		 }
-        return departments;
-    }
+
+	public void createDepartment(DepartmentRequest departmentRequest) {
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Department department = new Department(departmentRequest.getTitleDepartmnet(),
+					departmentRequest.getDateCreate());
+			session.save(department);
+		} finally {
+			session.getTransaction().commit();
+			if (session.isOpen()) {
+				session.close();
+			}
+		}
+	}
+
+	public Department findDepartmentById(Integer id) {
+		Session session = null;
+		Department department;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			department = session.get(Department.class, id);
+
+			session.getTransaction().commit();
+		} finally {
+			if (session.isOpen()) {
+				session.close();
+			}
+		}
+		return department;
+	}
+
+	public Collection<Department> findAllDepartment() {
+		Session session = null;
+		List<Department> departments;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			String hql = "select d from Department d";
+			Query query = session.createQuery(hql);
+			departments = query.list();
+			session.getTransaction().commit();
+		} finally {
+			if (session.isOpen()) {
+				session.close();
+			}
+		}
+		return departments;
+	}
 
 	@Override
 	public void deleteDepartment(Integer id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-       session.beginTransaction();
-       
-       Department del = (Department) session.get(Department.class, id);
-       session.delete(del);
-       
-       session.getTransaction().commit();
-       if (session.isOpen()) {
-           session.close();
-       }	
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			Department del = (Department) session.get(Department.class, id);
+			session.delete(del);
+
+			session.getTransaction().commit();
+		} finally {
+			if (session.isOpen()) {
+				session.close();
+			}
+		}
 	}
 
 	@Override
 	public void updateDepartment(Department department) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-       session.beginTransaction();
-       Department update = (Department) session.get(Department.class, department.getId());
-       update.setTitleDepartmnet(department.getTitleDepartmnet());
-       update.setDateCreate(department.getDateCreate());
-       session.update(update);
-       session.getTransaction().commit();
-       if (session.isOpen()) {
-           session.close();
-       }
-		
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Department update = (Department) session.get(Department.class, department.getId());
+			update.setTitleDepartmnet(department.getTitleDepartmnet());
+			update.setDateCreate(department.getDateCreate());
+			session.update(update);
+			session.getTransaction().commit();
+		} finally {
+			if (session.isOpen()) {
+				session.close();
+			}
+		}
+
 	}
-	
+
 }

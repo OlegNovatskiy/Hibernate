@@ -2,13 +2,19 @@ package com.kerpach.components.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Departments")
@@ -24,7 +30,18 @@ public class Department implements Serializable {
 	private String titleDepartmnet;
 	@Column(name = "date_create")
 	private Date dateCreate;
+/*
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Worker", fetch = FetchType.LAZY)
+	private List workers;
+	
+	public List getWorkers() {
+		return workers;
+	}
 
+	public void setWorkers(List workers) {
+		this.workers = workers;
+	}
+*/
 	public Department() {
 	}
 

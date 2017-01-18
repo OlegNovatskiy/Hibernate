@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,7 +33,19 @@ public class Worker implements Serializable{
 	private Integer idPosition;
 	@Column(name = "id_department")
 	private Integer idDepartment;
+	/*
+	@ManyToOne
+	@JoinColumn(name="id_department")
+	private Department department;
 	
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+*/
 	public Worker(){}
 	
 	public Worker(String fnameWorker,String snameWorker,String tnameWorker, Date dateBirth,  Integer idPosition,Integer idDepartment){
