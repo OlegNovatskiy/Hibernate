@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 @Entity
@@ -30,18 +32,19 @@ public class Department implements Serializable {
 	private String titleDepartmnet;
 	@Column(name = "date_create")
 	private Date dateCreate;
-/*
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Worker", fetch = FetchType.LAZY)
-	private List workers;
+
+	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+	@JsonManagedReference
+	private List<Worker> workers= new ArrayList<>();
 	
-	public List getWorkers() {
+	public List<Worker> getWorkers() {
 		return workers;
 	}
 
-	public void setWorkers(List workers) {
+	public void setWorkers(List<Worker> workers) {
 		this.workers = workers;
 	}
-*/
+
 	public Department() {
 	}
 

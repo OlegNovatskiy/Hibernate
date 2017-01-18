@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="Workers")
 public class Worker implements Serializable{
@@ -28,15 +30,25 @@ public class Worker implements Serializable{
 	@Column(name = "tname")
 	private String tnameWorker;
 	@Column(name = "date_birth")
-	private Date dateBirth;
-	@Column(name = "id_position")
-	private Integer idPosition;
-	@Column(name = "id_department")
-	private Integer idDepartment;
-	/*
+	private Date dateBirth;	
+	
+	@ManyToOne
+	@JoinColumn(name="id_position")
+	@JsonBackReference
+	private Position position;
+	
 	@ManyToOne
 	@JoinColumn(name="id_department")
+	@JsonBackReference
 	private Department department;
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
 	
 	public Department getDepartment() {
 		return department;
@@ -45,16 +57,14 @@ public class Worker implements Serializable{
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-*/
+
 	public Worker(){}
 	
-	public Worker(String fnameWorker,String snameWorker,String tnameWorker, Date dateBirth,  Integer idPosition,Integer idDepartment){
+	public Worker(String fnameWorker,String snameWorker,String tnameWorker, Date dateBirth){
 		this.fnameWorker = fnameWorker;
 		this.snameWorker = snameWorker;
 		this.tnameWorker = tnameWorker;
 		this.dateBirth = dateBirth;
-		this.idPosition = idPosition;
-		this.idDepartment = idDepartment;
 	}
 
 	public Integer getId() {
@@ -96,23 +106,5 @@ public class Worker implements Serializable{
 	public void setDateBirth(Date dateBirth) {
 		this.dateBirth = dateBirth;
 	}
-
-	public Integer getIdPosition() {
-		return idPosition;
-	}
-
-	public void setIdPosition(Integer idPosition) {
-		this.idPosition = idPosition;
-	}
-
-	public Integer getIdDepartment() {
-		return idDepartment;
-	}
-
-	public void setIdDepartment(Integer idDepartment) {
-		this.idDepartment = idDepartment;
-	}
-
-	
 
 }

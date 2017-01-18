@@ -1,13 +1,19 @@
 package com.kerpach.components.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * Model class for position
@@ -28,6 +34,18 @@ public class Position implements Serializable {
 	private String regCodPosition;
 	@Column(name = "salary")
 	private Float salaryPosition;
+
+	@OneToMany(mappedBy = "position", fetch = FetchType.EAGER)
+	@JsonManagedReference
+	private List<Worker> workers= new ArrayList<>();
+	
+	public List<Worker> getWorkers() {
+		return workers;
+	}
+
+	public void setWorkers(List<Worker> workers) {
+		this.workers = workers;
+	}
 
 	public Position() {
 	}

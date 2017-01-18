@@ -15,8 +15,6 @@ import com.kerpach.persistence.HibernateUtil;
 @Repository
 public class PositionDAO implements IPosition {
 
-	Session session = HibernateUtil.getSessionFactory().openSession();
-
 	@Override
 	public void createPosition(PositionRequest positionRequest) {
 		Session session = null;
@@ -53,20 +51,23 @@ public class PositionDAO implements IPosition {
 
 	@Override
 	public Collection<Position> findAllPosition() {
-		Session session = null;
+		Session session;
 		List<Position> positions;
-		try {
+		//try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			String hql = "select p from Position p";
 			Query query = session.createQuery(hql);
 			positions = query.list();
 			session.getTransaction().commit();
-		} finally {
+		//} finally {
 			if (session.isOpen()) {
 				session.close();
 			}
-		}
+		//}
+			for (Position position : positions) {
+				System.out.println(position.getTitlePosition()+"\n");
+			}
 		return positions;
 	}
 

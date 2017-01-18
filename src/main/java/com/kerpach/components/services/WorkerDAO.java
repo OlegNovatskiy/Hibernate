@@ -22,8 +22,7 @@ public class WorkerDAO implements IWorker {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			Worker worker = new Worker(workerRequest.getFnameWorker(), workerRequest.getSnameWorker(),
-					workerRequest.getTnameWorker(), workerRequest.getDateBirth(), workerRequest.getIdPosition(),
-					workerRequest.getIdDepartment());
+					workerRequest.getTnameWorker(), workerRequest.getDateBirth());
 			session.save(worker);
 			session.getTransaction().commit();
 		} finally {
@@ -98,8 +97,6 @@ public class WorkerDAO implements IWorker {
 			update.setSnameWorker(worker.getSnameWorker());
 			update.setTnameWorker(worker.getTnameWorker());
 			update.setDateBirth(worker.getDateBirth());
-			update.setIdPosition(worker.getIdPosition());
-			update.setIdDepartment(worker.getIdDepartment());
 			session.update(update);
 			session.getTransaction().commit();
 		} finally {

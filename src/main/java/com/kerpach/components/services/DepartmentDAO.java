@@ -24,8 +24,8 @@ public class DepartmentDAO implements IDepartment {
 			Department department = new Department(departmentRequest.getTitleDepartmnet(),
 					departmentRequest.getDateCreate());
 			session.save(department);
-		} finally {
 			session.getTransaction().commit();
+		} finally {			
 			if (session.isOpen()) {
 				session.close();
 			}
