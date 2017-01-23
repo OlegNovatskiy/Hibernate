@@ -1,10 +1,14 @@
 package com.kerpach.components.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.kerpach.components.entity.Worker;
@@ -15,6 +19,18 @@ import com.kerpach.persistence.HibernateUtil;
 @Repository
 public class WorkerDAO implements IWorker {
 
+	
+	
+	public Collection<Worker> getTest(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Collection<Worker> workers = session.createCriteria(Worker.class)
+				.add(Restrictions.like("fnameWorker", "No", MatchMode.ANYWHERE))
+				.setFirstResult(2)
+				.setMaxResults(2)
+				.list();
+		session.close();
+		return workers;
+	}
 
 	public void createWorker(WorkerRequest workerRequest) {
 		Session session = null;

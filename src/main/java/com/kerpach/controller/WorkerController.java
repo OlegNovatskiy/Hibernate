@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kerpach.components.entity.Worker;
 import com.kerpach.components.entity.request.WorkerRequest;
+import com.kerpach.components.services.WorkerDAO;
 import com.kerpach.services.WorkerService;
 
 @Configuration
@@ -22,6 +23,13 @@ public class WorkerController {
 	@Autowired
 	private WorkerService workerService;
 
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public Collection<Worker> addWorker() {
+		WorkerDAO dao = new WorkerDAO();
+		return dao.getTest();
+	}
+	
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String addWorker(@RequestBody WorkerRequest workerRequest) {
 		workerService.createWorker(workerRequest);
