@@ -2,6 +2,10 @@ package com.kerpach.controller;
 
 import java.util.Collection;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +29,15 @@ public class WorkerController {
 
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	public Collection<Worker> addWorker() {
+		// DetachedCriteria query =
+		// DetachedCriteria.forClass(Worker.class).add(Property.forName("fnameWorker").like("no",
+		// MatchMode.ANYWHERE));
+
 		WorkerDAO dao = new WorkerDAO();
-		return dao.getTest();
+		Collection<Worker> w =workerService.getTest1();
+		return w;
 	}
-	
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String addWorker(@RequestBody WorkerRequest workerRequest) {
 		workerService.createWorker(workerRequest);

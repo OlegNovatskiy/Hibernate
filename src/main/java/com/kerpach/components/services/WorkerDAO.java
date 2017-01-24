@@ -1,14 +1,15 @@
 package com.kerpach.components.services;
 
-import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kerpach.components.entity.Worker;
@@ -18,16 +19,31 @@ import com.kerpach.persistence.HibernateUtil;
 
 @Repository
 public class WorkerDAO implements IWorker {
-
 	
-	
-	public Collection<Worker> getTest(){
+	public Collection<Worker> getTest1() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Collection<Worker> workers = session.createCriteria(Worker.class)
-				.add(Restrictions.like("fnameWorker", "No", MatchMode.ANYWHERE))
-				.setFirstResult(2)
-				.setMaxResults(2)
-				.list();
+		session.beginTransaction();
+		Query sqlQuery = session.createSQLQuery("SELECT fname FROM Workers");
+		//Query hqlQuery = session.createQuery("SELECT workers FROM Worker workers");
+		List<Worker> workers = sqlQuery.list();
+		session.getTransaction().commit();
+		session.close();
+		return workers;
+	}
+	
+	public Collection<Worker> getTest(DetachedCriteria query) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+//		Collection<Worker> workers = session.createCriteria(Worker.class)
+//				 -.createAlias("fnameWorker", "fw")
+//				 .add(Restrictions.like("fnameWorker", "No",
+//				 MatchMode.ANYWHERE))
+//				 .addOrder(Order.asc("fnameWorker"))
+//				 .add(Restrictions.between("position", 1, 5))
+//				 .setFirstResult(2)
+//				 .setMaxResults(2)
+//				 .createCriteria("position").add(Restrictions.eq("id", 1))
+//				.list();
+		Collection<Worker> workers = query.getExecutableCriteria(session).list();
 		session.close();
 		return workers;
 	}
@@ -91,7 +107,8 @@ public class WorkerDAO implements IWorker {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
-			Worker del = (Worker) session.get(Worker.class, id);
+			Worker del = new Worker();// (Worker) session.get(Worker.class, id);
+			del.setId(id);
 			session.delete(del);
 
 			session.getTransaction().commit();

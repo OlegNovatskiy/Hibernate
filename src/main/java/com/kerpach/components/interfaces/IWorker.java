@@ -6,6 +6,8 @@ import com.kerpach.components.entity.Worker;
 import com.kerpach.components.entity.request.WorkerRequest;
 
 public interface IWorker {
+
+	public Collection<Worker> getTest1();
 	
 	public void createWorker(WorkerRequest workerRequest);
 	
