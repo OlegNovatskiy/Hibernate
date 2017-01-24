@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kerpach.components.entity.Department;
 import com.kerpach.components.entity.request.DepartmentRequest;
+import com.kerpach.components.services.DepartmentDAO;
 import com.kerpach.services.DepartmentService;
 
 @Configuration
@@ -21,6 +22,12 @@ public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
+	
+	@RequestMapping(value="/test", method = RequestMethod.POST)
+	public void test(){
+		DepartmentDAO dd = new DepartmentDAO();
+		dd.testFunction();
+	}
 	
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public String addDepartment(@RequestBody DepartmentRequest departmentRequest){

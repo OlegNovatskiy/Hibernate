@@ -4,15 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -35,9 +40,12 @@ public class Position implements Serializable {
 	@Column(name = "salary")
 	private Float salaryPosition;
 
-	@OneToMany(mappedBy = "position", fetch = FetchType.EAGER)
-	@JsonManagedReference
-	private List<Worker> workers= new ArrayList<>();
+	@OneToOne( optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name="id", unique = true, nullable = false)
+	@JsonBackReference	
+	private Worker worker;
+	
+	/*private List<Worker> workers= new ArrayList<>();
 	
 	public List<Worker> getWorkers() {
 		return workers;
@@ -45,6 +53,14 @@ public class Position implements Serializable {
 
 	public void setWorkers(List<Worker> workers) {
 		this.workers = workers;
+	}*/
+
+	public Worker getWorker() {
+		return worker;
+	}
+
+	public void setWorker(Worker worker) {
+		this.worker = worker;
 	}
 
 	public Position() {

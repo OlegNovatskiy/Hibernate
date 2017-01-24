@@ -14,22 +14,38 @@ import com.kerpach.persistence.HibernateUtil;
 
 @Repository
 public class DepartmentDAO implements IDepartment {
+/*
+	@Autowired
+	private SessionFactory sessionFactory;/*/
+	
 
-
+	public void testFunction(){
+		/* SessionFactory sessions = new Configuration().configure().buildSessionFactory();
+		 Session session = sessions.openSession();
+		 session.close();*/
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Department department = session.get(Department.class, 1);
+		department.setTitleDepartmnet("Гараж 132");
+		//session.merge(department);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
 	public void createDepartment(DepartmentRequest departmentRequest) {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+		//Session session = null;
+		//try {
+		Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			Department department = new Department(departmentRequest.getTitleDepartmnet(),
 					departmentRequest.getDateCreate());
 			session.save(department);
 			session.getTransaction().commit();
-		} finally {			
+		//} finally {			
 			if (session.isOpen()) {
 				session.close();
 			}
-		}
+		//}
 	}
 
 	public Department findDepartmentById(Integer id) {

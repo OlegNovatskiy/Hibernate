@@ -19,6 +19,10 @@ public class WorkerService {
 		iWorker.createWorker(positionRequest);
 	}
 
+	public Collection<Worker> getTest1(){
+		return iWorker.getTest1();
+	}
+	
 	public Worker findWorkerById(Integer id) {
 		return iWorker.findWorkerById(id);
 	}
